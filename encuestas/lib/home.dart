@@ -1,23 +1,46 @@
+import 'package:encuestas/dashboard.dart';
+import 'package:encuestas/questions_a.dart';
+import 'package:encuestas/questions_b.dart';
+import 'package:encuestas/summary.dart';
+import 'package:encuestas/survey.dart';
 import 'package:flutter/material.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key, required this.title});
 
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _HomePageState extends State<HomePage> {
 
-  void _incrementCounter() {
+  final List<Widget> _pages = [
+    const DashboardPage(), // 0 
+    const SurveyPage(), // 1
+    const QuestionsAPage(), // 2
+    const QuestionsBPage(), // 3
+    const SummaryPage(), // 4
+
+  ];
+
+   final List<String> _titles = [
+    'Dashboard',
+    'Nueva Encuesta',
+    'Preguntas A',
+    'Preguntas B',
+    'Resumen',
+  ];
+
+  int _currentPage = 0;
+
+  void _changePage (int pageIndex){
     setState(() {
-      
-      _counter++;
+       _currentPage = pageIndex;
     });
+    
   }
 
   @override
@@ -28,29 +51,15 @@ class _MyHomePageState extends State<MyHomePage> {
        
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         
-        title: Text(widget.title),
+        title: Text(_titles[_currentPage]),
       ),
-      body: Center(
-        
-        child: Column(
-         
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
+      body:  _pages[_currentPage],
+
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: () => _changePage(1),
+        tooltip: "Nueva Encuesta",
         child: const Icon(Icons.add),
-      ), 
+        ),
     );
   }
 }
