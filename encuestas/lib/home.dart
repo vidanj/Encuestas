@@ -16,17 +16,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late List<Widget> _pages;
 
-  final List<Widget> _pages = [
-    const DashboardPage(), // 0 
-    const SurveyPage(), // 1
-    const QuestionsAPage(), // 2
-    const QuestionsBPage(), // 3
-    const SummaryPage(), // 4
-
-  ];
-
-   final List<String> _titles = [
+  final List<String> _titles = [
     'Dashboard',
     'Nueva Encuesta',
     'Preguntas A',
@@ -35,6 +27,21 @@ class _HomePageState extends State<HomePage> {
   ];
 
   int _currentPage = 0;
+
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize `_pages` here when the instance is fully created
+    _pages = [
+      const DashboardPage(), // 0
+      SurveyPage(onPageChange: _changePage), // 1
+      const QuestionsAPage(), // 2
+      const QuestionsBPage(), // 3
+      const SummaryPage(), // 4
+    ];
+  }
+
 
   void _changePage (int pageIndex){
     setState(() {
@@ -55,11 +62,12 @@ class _HomePageState extends State<HomePage> {
       ),
       body:  _pages[_currentPage],
 
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: _currentPage == 0
+        ? FloatingActionButton( //Condicional como en Java Script
         onPressed: () => _changePage(1),
         tooltip: "Nueva Encuesta",
         child: const Icon(Icons.add),
-        ),
+        ): null, // Oculta el botón en otras páginas
     );
   }
 }
