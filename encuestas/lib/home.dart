@@ -34,11 +34,11 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     // Initialize `_pages` here when the instance is fully created
     _pages = [
-      const DashboardPage(), // 0
+      DashboardPage(), // 0
       SurveyPage(onPageChange: _changePage), // 1
-      const QuestionsAPage(), // 2
-      const QuestionsBPage(), // 3
-      const SummaryPage(), // 4
+      QuestionsAPage(onPageChange: _changePage), // 2
+      QuestionsBPage(onPageChange: _changePage), // 3
+      SummaryPage(onPageChange: _changePage), // 4
     ];
   }
 
@@ -56,10 +56,16 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
        
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        leading:
+          _currentPage != 0
+          ? IconButton(onPressed: () { _changePage(_currentPage-1);}, icon: Icon(Icons.keyboard_return_outlined)
+          ): null,
+
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         
         title: Text(_titles[_currentPage]),
       ),
+
       body:  _pages[_currentPage],
 
       floatingActionButton: _currentPage == 0

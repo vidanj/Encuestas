@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
 
 class SurveyPage extends StatelessWidget{
   final Function(int) onPageChange;
