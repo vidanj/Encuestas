@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
   // Top-level function to create a centered TextFormField with padding
-   Widget buildTextFormField({required String hintText, required String validateText}) {
+   Widget buildTextFormField({required String hintText, required String validateText, required TextEditingController controller,}) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: TextFormField(
+        controller: controller,
         textAlign: TextAlign.center,
         decoration: InputDecoration(
           hintText: hintText,

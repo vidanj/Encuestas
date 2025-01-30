@@ -4,10 +4,10 @@ import 'package:encuestas/questions_b.dart';
 import 'package:encuestas/summary.dart';
 import 'package:encuestas/survey.dart';
 import 'package:flutter/material.dart';
+import 'models/student.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
-
 
   final String title;
 
@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   int _currentPage = 0;
-
+  Student student = Student('','','','','');
 
   @override
   void initState() {
@@ -36,18 +36,16 @@ class _HomePageState extends State<HomePage> {
     _pages = [
       DashboardPage(), // 0
       SurveyPage(onPageChange: _changePage), // 1
-      QuestionsAPage(onPageChange: _changePage), // 2
-      QuestionsBPage(onPageChange: _changePage), // 3
+      QuestionsAPage(onPageChange: _changePage, student: student,), // 2
+      QuestionsBPage(onPageChange: _changePage, student: student,), // 3
       SummaryPage(onPageChange: _changePage), // 4
     ];
   }
-
 
   void _changePage (int pageIndex){
     setState(() {
        _currentPage = pageIndex;
     });
-    
   }
 
   @override
@@ -77,3 +75,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+//
