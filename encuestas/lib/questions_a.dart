@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'utilidades.dart'; import 'models/student.dart';
 
 class QuestionsAPage extends StatefulWidget{
-  final Function(int) onPageChange;
-  final Student student;
-  const QuestionsAPage ({super.key, required this.onPageChange, required this.student});
+  final Function(int,Student) onPageChange;
+  const QuestionsAPage ({super.key, required this.onPageChange});
 
   @override
   State<QuestionsAPage> createState() => _QuestionsAPageState();
@@ -50,13 +49,14 @@ class _QuestionsAPageState extends State<QuestionsAPage> {
                 // Validate the form before proceeding
                 if (_formKey.currentState!.validate()) {
 
-                  widget.student.name = _nameController.text;
-                  widget.student.phone = _phoneController.text;
-                  widget.student.email = _emailController.text;
-                  widget.student.matricula = _matriculaController.text;
-                  widget.student.age = _ageController.text;
+                   Student student = Student(
+                    _nameController.text, 
+                    _phoneController.text, 
+                    _emailController.text, 
+                    _matriculaController.text, 
+                    _ageController.text);
                   //print("AQUI!!!!!!!!!!!!!");
-                  widget.onPageChange(3); 
+                  widget.onPageChange(3,student); 
                 }
               },
               child: const Text("Continuar"),

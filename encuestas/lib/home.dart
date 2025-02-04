@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   int _currentPage = 0;
-  Student student = Student('','','','','');
+  Student? student;
 
   @override
   void initState() {
@@ -36,15 +36,21 @@ class _HomePageState extends State<HomePage> {
     _pages = [
       DashboardPage(), // 0
       SurveyPage(onPageChange: _changePage), // 1
-      QuestionsAPage(onPageChange: _changePage, student: student,), // 2
+      QuestionsAPage(onPageChange: _changePage), // 2
       QuestionsBPage(onPageChange: _changePage, student: student,), // 3
       SummaryPage(onPageChange: _changePage), // 4
     ];
   }
 
-  void _changePage (int pageIndex){
+  void _changePage (int pageIndex, [Student? _student]){
     setState(() {
        _currentPage = pageIndex;
+
+      if (_student != null) {
+        student = _student;
+        // Actualiza la página de QuestionsBPage con el nuevo estudiante
+        _pages[3] = QuestionsBPage(onPageChange: _changePage, student: student);
+      }
     });
   }
 
