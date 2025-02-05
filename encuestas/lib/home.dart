@@ -1,4 +1,5 @@
 import 'package:encuestas/dashboard.dart';
+import 'package:encuestas/models/answer.dart';
 import 'package:encuestas/questions_a.dart';
 import 'package:encuestas/questions_b.dart';
 import 'package:encuestas/summary.dart';
@@ -21,13 +22,14 @@ class _HomePageState extends State<HomePage> {
   final List<String> _titles = [
     'Dashboard',
     'Nueva Encuesta',
-    'Preguntas A',
-    'Preguntas B',
+    'Datos del estudiante',
+    'Encuesta',
     'Resumen',
   ];
 
   int _currentPage = 0;
   Student? student;
+  Answer? answer;
 
   @override
   void initState() {
@@ -38,18 +40,27 @@ class _HomePageState extends State<HomePage> {
       SurveyPage(onPageChange: _changePage), // 1
       QuestionsAPage(onPageChange: _changePage), // 2
       QuestionsBPage(onPageChange: _changePage, student: student,), // 3
-      SummaryPage(onPageChange: _changePage), // 4
+      SummaryPage(onPageChange: _changePage, student: student, answer: answer), // 4
     ];
   }
 
-  void _changePage (int pageIndex, [Student? _student]){
+  void _changePage (int pageIndex, [Student? student, Answer? answer]){
     setState(() {
        _currentPage = pageIndex;
 
-      if (_student != null) {
-        student = _student;
-        // Actualiza la página de QuestionsBPage con el nuevo estudiante
-        _pages[3] = QuestionsBPage(onPageChange: _changePage, student: student);
+      if (student != null) {
+        student = student;
+
+        if(answer != null){
+          answer = answer;
+          // Actualiza la página de SummaryPage con el nuevo estudiante y las respuestas
+          _pages[4] = SummaryPage(onPageChange: _changePage, student: student, answer: answer);
+          
+        }else{
+          // Actualiza la página de QuestionsBPage con el nuevo estudiante
+          _pages[3] = QuestionsBPage(onPageChange: _changePage, student: student);
+        }
+        
       }
     });
   }

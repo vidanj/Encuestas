@@ -32,39 +32,41 @@ class _QuestionsAPageState extends State<QuestionsAPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView( child: 
-      Form(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            buildTextFormField(hintText: '¿Cual es tu nombre?', validateText: 'Por favor, ingrese su nombre.', controller: _nameController),
-            buildTextFormField(hintText: '¿Cual es tu telefono?', validateText: 'Por favor, ingrese su nombre.', controller: _phoneController),
-            buildTextFormField(hintText: '¿Cual es tu correo?',validateText: 'Por favor, ingrese su correo.',controller: _emailController),
-            buildTextFormField(hintText: '¿Cual es tu matricula?',validateText: 'Por favor, ingrese su matricula.',controller: _matriculaController),
-            buildTextFormField(hintText: '¿Cual es tu edad?',validateText: 'Por favor, ingrese su edad.',controller: _ageController),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: 
+        Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              buildTextFormField(hintText: '¿Cual es tu nombre?', validateText: 'Por favor, ingrese su nombre.', controller: _nameController),
+              buildTextFormField(hintText: '¿Cual es tu telefono?', validateText: 'Por favor, ingrese su nombre.', controller: _phoneController),
+              buildTextFormField(hintText: '¿Cual es tu correo?',validateText: 'Por favor, ingrese su correo.',controller: _emailController),
+              buildTextFormField(hintText: '¿Cual es tu matricula?',validateText: 'Por favor, ingrese su matricula.',controller: _matriculaController),
+              buildTextFormField(hintText: '¿Cual es tu edad?',validateText: 'Por favor, ingrese su edad.',controller: _ageController),
 
-            ElevatedButton(
-              onPressed: () {
-                // Validate the form before proceeding
-                if (_formKey.currentState!.validate()) {
+              ElevatedButton(
+                onPressed: () {
+                  // Validate the form before proceeding
+                  if (_formKey.currentState!.validate()) {
 
-                   Student student = Student(
-                    _nameController.text, 
-                    _phoneController.text, 
-                    _emailController.text, 
-                    _matriculaController.text, 
-                    _ageController.text);
-                  //print("AQUI!!!!!!!!!!!!!");
-                  widget.onPageChange(3,student); 
-                }
-              },
-              child: const Text("Continuar"),
-            ),
-          ],
+                    Student student = Student(
+                      _nameController.text, 
+                      _phoneController.text, 
+                      _emailController.text, 
+                      _matriculaController.text, 
+                      _ageController.text);
+                    //print("AQUI!!!!!!!!!!!!!");
+                    widget.onPageChange(3,student); 
+                  }
+                },
+                child: const Text("Continuar"),
+              ),
+            ],
+          ),
         ),
       ),
-    ),
     );
   }
 }
